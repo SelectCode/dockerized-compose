@@ -1,0 +1,24 @@
+image: docker:latest
+
+# When using dind, it's wise to use the overlayfs driver for
+# improved performance.
+variables:
+  DOCKER_DRIVER: overlay2
+  IMAGE_NAME: selectcode/dind-docker-compose
+
+services:
+- docker:dind
+
+before_script:
+- docker info
+
+build:
+  stage: build
+  script:
+  - docker build -t $IMAGE_NAME .
+
+deploy:
+   stage: deploy
+   script:
+   - docker login --user $USER --password $PASSWORD
+   - docker push $IMAGE_NAME
