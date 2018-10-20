@@ -15,10 +15,7 @@ before_script:
 build:
   stage: build
   script:
+  - docker login -u $USER -p $PASSWORD
   - docker build -t $IMAGE_NAME .
-
-deploy:
-   stage: deploy
-   script:
-   - docker login -u $USER -p $PASSWORD
-   - docker push $IMAGE_NAME
+  - docker push $IMAGE_NAME
+   
