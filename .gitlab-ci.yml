@@ -20,5 +20,5 @@ build:
 deploy:
    stage: deploy
    script:
-   - docker login -u $USER - $PASSWORD
+   - docker login -u $USER -p $PASSWORD
    - docker push $IMAGE_NAME
