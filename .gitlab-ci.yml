@@ -12,10 +12,10 @@ before_script:
 - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 stages:
-    - build
-    - deloy
+  - build
+  - deploy
 
-build:interal:
+build:internal:
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE" .
@@ -24,7 +24,7 @@ build:interal:
 build:external:
   stage: deploy
   script:
-      - docker pull "$CI_REGISTRY_IMAGE" 
-      - docker tag "$CI_REGISTRY_IMAGE" "$IMAGE_NAME"
-      - docker login -u $USER -p $PASSWORD
-      - docker push $IMAGE_NAME
+    - docker pull "$CI_REGISTRY_IMAGE" 
+    - docker tag "$CI_REGISTRY_IMAGE" "$IMAGE_NAME"
+    - docker login -u $USER -p $PASSWORD
+    - docker push $IMAGE_NAME
